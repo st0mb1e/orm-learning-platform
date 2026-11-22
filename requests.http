@@ -1,0 +1,57 @@
+@base = http://localhost:8081/api
+
+# Идентификаторы в примерах взяты из свежей базы с демоданными.
+# Если база уже менялась, возьмите идентификаторы из ответов GET.
+
+### Посмотреть участников и найти нужного студента
+GET {{base}}/users
+
+### Открыть первую страницу каталога
+GET {{base}}/courses?page=0&size=10
+
+### Посмотреть модули, уроки и задания первого курса
+GET {{base}}/courses/1
+
+### Записать студента на курс
+# Студент 3 уже записан в демоданных. Этот запрос можно отправить после отписки.
+POST {{base}}/courses/1/enrollments
+Content-Type: application/json
+
+{"studentId":3}
+
+### Сдать первое задание за студента 3
+POST {{base}}/assignments/1/submissions
+Content-Type: application/json
+
+{"studentId":3,"content":"Внешний ключ course_id хранится в таблице course_modules. В Course используется mappedBy=course."}
+
+### Посмотреть решения и найти идентификатор отправленной работы
+GET {{base}}/assignments/1/submissions
+
+### Выставить оценку
+# Подставьте в путь идентификатор решения из предыдущего ответа.
+PATCH {{base}}/submissions/2/grade
+Content-Type: application/json
+
+{"teacherId":1,"score":90,"feedback":"Связь описана верно. Укажите каскады."}
+
+### Открыть тест и посмотреть идентификаторы вопросов и вариантов
+GET {{base}}/quizzes/1
+
+### Отправить ответы студента 3
+POST {{base}}/quizzes/1/submissions
+Content-Type: application/json
+
+{"studentId":3,"answers":[{"questionId":1,"optionIds":[1]},{"questionId":2,"optionIds":[3,4]}]}
+
+### Посмотреть попытки студента 3
+GET {{base}}/users/3/quiz-results
+
+### Оставить отзыв о курсе
+POST {{base}}/courses/1/reviews
+Content-Type: application/json
+
+{"studentId":3,"rating":5,"comment":"Удалось разобраться с владельцем связи."}
+
+### Отписать студента от курса
+DELETE {{base}}/courses/1/students/3

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Учебная платформа</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <header class="header">
+      <a class="brand" href="/">Учебная платформа</a>
+      <label class="user-choice">
+        Участник демонстрации
+        <select id="current-user"></select>
+      </label>
+    </header>
+    <main class="page">
+      <div class="intro">
+        <h1>Учебные курсы</h1>
+        <p class="muted">Демонстрационный режим</p>
+      </div>
+      <div
+        id="notice"
+        class="notice"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></div>
+      <div class="workspace">
+        <aside class="catalog">
+          <div class="section-title">
+            <h2>Каталог курсов</h2>
+            <span id="course-count" class="badge">0</span>
+          </div>
+          <form data-form="search" class="stack">
+            <label
+              >Название курса<input
+                id="search"
+                name="search"
+                type="search"
+                placeholder="Например, Hibernate"
+                maxlength="200"
+            /></label>
+            <label
+              >Категория<select id="category-filter" name="categoryId">
+                <option value="">Все категории</option>
+              </select></label
+            >
+            <button class="secondary" type="submit">Найти курс</button>
+          </form>
+          <div id="course-list" class="course-list">
+            <p class="muted">Загружаем курсы…</p>
+          </div>
+          <div class="pagination">
+            <button
+              id="previous-page"
+              type="button"
+              aria-label="Предыдущая страница"
+            >
+              ←
+            </button>
+            <span id="page-info">1 / 1</span>
+            <button
+              id="next-page"
+              type="button"
+              aria-label="Следующая страница"
+            >
+              →
+            </button>
+          </div>
+          <section id="my-progress" class="progress"></section>
+        </aside>
+        <section
+          id="course-detail"
+          class="course-detail"
+          aria-label="Содержание курса"
+        >
+          <div class="empty">
+            <h2>Выберите курс</h2>
+            <p>Здесь появятся его модули, уроки и задания.</p>
+          </div>
+        </section>
+      </div>
+      <section id="management" class="management" hidden>
+        <div class="section-title">
+          <h2>Управление платформой</h2>
+          <span class="muted">Для преподавателя</span>
+        </div>
+        <div class="management-grid">
+          <details class="panel">
+            <summary>Новый курс</summary>
+            <form id="new-course" data-form="course" class="stack"></form>
+          </details>
+          <details class="panel">
+            <summary>Новый пользователь</summary>
+            <form data-form="user" class="stack">
+              <label>Имя<input name="name" required maxlength="120" /></label>
+              <label
+                >Email<input name="email" type="email" required maxlength="254"
+              /></label>
+              <label
+                >Роль<select name="role">
+                  <option value="STUDENT">Студент</option>
+                  <option value="TEACHER">Преподаватель</option>
+                  <option value="ADMIN">Администратор</option>
+                </select></label
+              >
+              <button type="submit">Добавить пользователя</button>
+            </form>
+          </details>
+          <details class="panel">
+            <summary>Категории и теги</summary>
+            <form data-form="category" class="stack">
+              <label
+                >Название категории<input
+                  name="name"
+                  required
+                  maxlength="60" /></label
+              ><button type="submit">Добавить категорию</button>
+            </form>
+            <form data-form="tag" class="stack">
+              <label
+                >Название тега<input
+                  name="name"
+                  required
+                  maxlength="60" /></label
+              ><button type="submit">Добавить тег</button>
+            </form>
+          </details>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+package ru.mifi.platform.repository;
+
+import ru.mifi.platform.model.Tag;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TagRepository extends JpaRepository<Tag, Long> {
+    boolean existsByNameIgnoreCase(String name);
+    boolean existsByNameIgnoreCaseAndIdNot(String name, Long id);
+}
